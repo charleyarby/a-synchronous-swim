@@ -1,11 +1,28 @@
+//var keypressHandler = require('../../server/js/keypressHandler.js')
 (function() {
 
   const serverUrl = 'http://127.0.0.1:3000';
 
   //
-  // TODO: build the swim command fetcher here
+  // TODO: build the swim command fetcher here GET
   //
 
+  const randomSwimCommandRequest = () => {
+    $.ajax({
+      type: 'GET',
+      url: 'http://127.0.0.1:3000',
+      success: (data) => {
+        SwimTeam.move(data)
+      },
+      complete: () => {
+        setTimeout(randomSwimCommandRequest,10);
+      }
+    });
+
+  }
+  randomSwimCommandRequest();
+  //setInterval(randomSwimCommandRequest, 2000);
+  //randomSwimCommandRequest();
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
@@ -17,7 +34,7 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: 'http://127.0.0.1:3000',
       cache: false,
       contentType: false,
       processData: false,
